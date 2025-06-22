@@ -1,0 +1,125 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MovieVerse - Search Movies</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #121212;
+      color: #fff;
+    }
+    header {
+      background-color: #1f1f1f;
+      padding: 20px;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2em;
+      color: #ff4c4c;
+    }
+    .search-container {
+      text-align: center;
+      margin: 30px auto;
+    }
+    .search-container input {
+      width: 80%;
+      max-width: 500px;
+      padding: 12px;
+      border-radius: 25px;
+      border: none;
+      font-size: 16px;
+    }
+    .movies-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 20px;
+      padding: 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+    .movie-card {
+      background-color: #1e1e1e;
+      border-radius: 10px;
+      overflow: hidden;
+      text-align: center;
+      transition: transform 0.3s;
+      cursor: pointer;
+    }
+    .movie-card:hover {
+      transform: scale(1.05);
+    }
+    .movie-card img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+    }
+    .movie-title {
+      padding: 10px;
+      font-size: 16px;
+    }
+    .no-results {
+      text-align: center;
+      font-size: 18px;
+      padding: 40px;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🎬 MovieVerse</h1>
+  </header>
+
+  <div class="search-container">
+    <input type="text" id="searchInput" placeholder="Search for a movie..." oninput="searchMovies()">
+  </div>
+
+  <div id="moviesContainer" class="movies-grid"></div>
+  <div id="noResults" class="no-results" style="display: none;">No movies found.</div>
+
+  <script>
+    const movies = [
+      { title: "Animal", image: "https://via.placeholder.com/150x220?text=Animal" },
+      { title: "Pushpa: The Rise", image: "https://via.placeholder.com/150x220?text=Pushpa" },
+      { title: "Jawan", image: "https://via.placeholder.com/150x220?text=Jawan" },
+      { title: "Pathaan", image: "https://via.placeholder.com/150x220?text=Pathaan" },
+      { title: "KGF Chapter 2", image: "https://via.placeholder.com/150x220?text=KGF+2" },
+      { title: "Brahmastra", image: "https://via.placeholder.com/150x220?text=Brahmastra" },
+      { title: "Salaar", image: "https://via.placeholder.com/150x220?text=Salaar" },
+      { title: "Shershaah", image: "https://via.placeholder.com/150x220?text=Shershaah" },
+      { title: "Tiger 3", image: "https://via.placeholder.com/150x220?text=Tiger+3" },
+      { title: "Doctor Strange", image: "https://via.placeholder.com/150x220?text=Strange" }
+    ];
+
+    function displayMovies(list) {
+      const container = document.getElementById("moviesContainer");
+      container.innerHTML = "";
+      list.forEach(movie => {
+        const div = document.createElement("div");
+        div.className = "movie-card";
+        div.innerHTML = `
+          <img src="${movie.image}" alt="${movie.title}">
+          <div class="movie-title">${movie.title}</div>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function searchMovies() {
+      const query = document.getElementById("searchInput").value.toLowerCase();
+      const filtered = movies.filter(movie =>
+        movie.title.toLowerCase().includes(query)
+      );
+      displayMovies(filtered);
+      document.getElementById("noResults").style.display = filtered.length ? "none" : "block";
+    }
+
+    // Initial load
+    displayMovies(movies);
+  </script>
+</body>
+</html>
