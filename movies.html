@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Movie Search</title>
+  <style>
+    body { font-family: Arial; background: #111; color: #fff; padding: 20px; }
+    input { width: 100%; padding: 12px; font-size: 18px; margin-bottom: 20px; }
+    .movie { background: #222; padding: 10px; margin: 10px 0; border-radius: 8px; }
+  </style>
+</head>
+<body>
+
+  <h2>Search Movies</h2>
+  <input type="text" id="search" placeholder="Search..." onkeyup="searchMovies()">
+
+  <div id="movieList"></div>
+
+  <script>
+    const movies = [
+      { title: "Avengers: Endgame" },
+      { title: "Iron Man" },
+      { title: "Spider-Man: No Way Home" },
+      { title: "Doctor Strange" },
+      { title: "Black Panther" },
+      { title: "Thor: Love and Thunder" }
+    ];
+
+    function displayMovies(list) {
+      const container = document.getElementById("movieList");
+      container.innerHTML = '';
+      if (list.length === 0) {
+        container.innerHTML = "<p>No movies found.</p>";
+        return;
+      }
+      list.forEach(movie => {
+        const div = document.createElement("div");
+        div.className = "movie";
+        div.textContent = movie.title;
+        container.appendChild(div);
+      });
+    }
+
+    function searchMovies() {
+      const query = document.getElementById("search").value.toLowerCase();
+      const filtered = movies.filter(m => m.title.toLowerCase().includes(query));
+      displayMovies(filtered);
+    }
+
+    // Display all on load
+    displayMovies(movies);
+  </script>
+
+</body>
+</html>
